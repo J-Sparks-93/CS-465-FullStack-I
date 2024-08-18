@@ -17,6 +17,15 @@ const travel = async function(req, res, next){
         .then(res => res.json())
         .then(json => {
             //console.log(json);
+            let message = null
+            if(!(json instanceof Array)) {
+                message = 'API lookup error';
+                json = [];
+            }else{
+                if(!json.length){
+                    message = 'No trips exist in our database!';
+                }
+            }
             res.render('travel', {title: 'Travlr Getaways', trips: json});
             
         })
